@@ -1,0 +1,8 @@
+<div class="bg-sk-400 h-full space-y-1">
+  <button (click)="obs.selectNewTask()" class="ion-activatable relative overflow-hidden w-full py-2 shadow-md">
+    Limpiar
+  </button>
+  <button (click)="obs.selectNewTask(task)" *ngFor="let task of apiService.allTasks" class="ion-activatable relative overflow-hidden w-full py-2 {{task.color}}">
+    {{task.tarea}}
+  </button>
+</div>

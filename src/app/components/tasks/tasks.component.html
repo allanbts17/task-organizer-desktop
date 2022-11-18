@@ -1,0 +1,77 @@
+<section class="h-full flex flex-col">
+  <div class="my-3 flex justify-around">
+   <!-- <ion-button *ngIf="toogleEdit" size="small" shape="round" fill="outline" (click)="cancelEdit()">
+      <ion-icon slot="start" name="create"></ion-icon>
+      <ion-label>Cancelar</ion-label>
+    </ion-button>
+    <ion-button *ngIf="!toogleEdit" size="small" shape="round" fill="outline" (click)="toogleEdit=true">
+      <ion-icon slot="start" name="create"></ion-icon>
+      <ion-label>Editar</ion-label>
+    </ion-button>
+    <ion-button *ngIf="!toogleEdit" size="small" shape="round" fill="outline" (click)="presentModal()">
+      <ion-icon slot="start" name="add-circle"></ion-icon>
+      <ion-label>Nueva tarea</ion-label>
+    </ion-button>
+    <ion-button *ngIf="toogleEdit" size="small" shape="round" fill="outline" (click)="updateAllTasks()">
+      <ion-icon slot="start" name="save"></ion-icon>
+      <ion-label>Guardar</ion-label>
+    </ion-button>-->
+  </div>
+
+  <div class="overflow-x-auto schedule">
+  <div class="divide-y" style="min-width: 800px;">
+    <div class="grid grid-cols-9 font-extrabold text-white bg-emerald-700 rounded-t-xl overflow-hidden">
+      <div class="pl-2 my-2">Tarea</div>
+      <div class="pl-2 my-2">Domingo</div>
+      <div class="pl-2 my-2">Lunes</div>
+      <div class="pl-2 my-2">Martes</div>
+      <div class="pl-2 my-2">Miércoles</div>
+      <div class="pl-2 my-2">Jueves</div>
+      <div class="pl-2 my-2">Viernes</div>
+      <div class="pl-2 my-2">Sábado</div>
+      <div class="pl-2 my-2">Total</div>
+    </div>
+    <div *ngIf="!toogleEdit">
+      <div *ngFor="let task of tasks;index as i">
+        <div (click)="selectTask(i)" [ngClass]="{'bg-emerald-700/30':task.selected}" class="grid grid-cols-9 divide-x text-black align-middle">
+            <div class="pl-2 my-2 align-middle">{{task.tarea}}</div>
+            <div class="pl-2 my-2 align-middle">{{task.domingo}}</div>
+            <div class="pl-2 my-2 align-middle">{{task.lunes}}</div>
+            <div class="pl-2 my-2 align-middle">{{task.martes}}</div>
+            <div class="pl-2 my-2 align-middle">{{task.miercoles}}</div>
+            <div class="pl-2 my-2 align-middle">{{task.jueves}}</div>
+            <div class="pl-2 my-2 align-middle">{{task.viernes}}</div>
+            <div class="pl-2  my-2 align-middle">{{task.sabado}}</div>
+            <div class="pl-2  my-2 align-middle">{{task.total}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div  *ngIf="toogleEdit">
+      <div *ngFor="let task of tasks;index as i" class="grid grid-cols-9 divide-x text-black align-middle">
+        <input type="text" class="pl-2 my-2 align-middle" [(ngModel)]="task.tarea">
+        <input type="number" class="pl-2 my-2 align-middle" [(ngModel)]="task.domingo" (ngModelChange)="updateTotal(i)">
+        <input type="number" class="pl-2 my-2 align-middle" [(ngModel)]="task.lunes" (ngModelChange)="updateTotal(i)">
+        <input type="number" class="pl-2 my-2 align-middle" [(ngModel)]="task.martes" (ngModelChange)="updateTotal(i)">
+        <input type="number" class="pl-2 my-2 align-middle" [(ngModel)]="task.miercoles" (ngModelChange)="updateTotal(i)">
+        <input type="number" class="pl-2 my-2 align-middle" [(ngModel)]="task.jueves" (ngModelChange)="updateTotal(i)">
+        <input type="number" class="pl-2 my-2 align-middle" [(ngModel)]="task.viernes" (ngModelChange)="updateTotal(i)">
+        <input type="number" class="pl-2  my-2 align-middle" [(ngModel)]="task.sabado" (ngModelChange)="updateTotal(i)">
+        <input type="number" class="pl-2  my-2 align-middle" readonly="true" [(ngModel)]="task.total">
+      </div>
+    </div>
+    <div class="grid grid-cols-9 divide-x text-black align-middle">
+      <div class="pl-2 my-2 align-middle">Restante</div>
+      <div class="pl-2 my-2 align-middle">{{hoursLeft.domingo}}</div>
+      <div class="pl-2 my-2 align-middle">{{hoursLeft.lunes}}</div>
+      <div class="pl-2 my-2 align-middle">{{hoursLeft.martes}}</div>
+      <div class="pl-2 my-2 align-middle">{{hoursLeft.miercoles}}</div>
+      <div class="pl-2 my-2 align-middle">{{hoursLeft.jueves}}</div>
+      <div class="pl-2 my-2 align-middle">{{hoursLeft.viernes}}</div>
+      <div class="pl-2  my-2 align-middle">{{hoursLeft.sabado}}</div>
+      <div class="pl-2  my-2 align-middle">Max {{activeHours}}</div>
+    </div>
+  </div>
+</div>
+<section (click)="unselectAll()" class="flex-1"></section>
+</section>
