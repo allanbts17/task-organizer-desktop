@@ -1,21 +1,21 @@
 <section class="h-full flex flex-col">
   <div class="my-3 flex justify-around">
-   <!-- <ion-button *ngIf="toogleEdit" size="small" shape="round" fill="outline" (click)="cancelEdit()">
-      <ion-icon slot="start" name="create"></ion-icon>
-      <ion-label>Cancelar</ion-label>
-    </ion-button>
-    <ion-button *ngIf="!toogleEdit" size="small" shape="round" fill="outline" (click)="toogleEdit=true">
-      <ion-icon slot="start" name="create"></ion-icon>
-      <ion-label>Editar</ion-label>
-    </ion-button>
-    <ion-button *ngIf="!toogleEdit" size="small" shape="round" fill="outline" (click)="presentModal()">
-      <ion-icon slot="start" name="add-circle"></ion-icon>
-      <ion-label>Nueva tarea</ion-label>
-    </ion-button>
-    <ion-button *ngIf="toogleEdit" size="small" shape="round" fill="outline" (click)="updateAllTasks()">
-      <ion-icon slot="start" name="save"></ion-icon>
-      <ion-label>Guardar</ion-label>
-    </ion-button>-->
+    <button mat-raised-button *ngIf="toogleEdit" (click)="cancelEdit()">
+      <mat-icon>clear</mat-icon>
+      <mat-label>Cancelar</mat-label>
+    </button>
+    <button mat-raised-button color="primary" *ngIf="!toogleEdit" (click)="toogleEdit=true">
+      <mat-icon>create</mat-icon>
+      Editar
+    </button>
+    <button mat-raised-button *ngIf="!toogleEdit" (click)="presentModal()">
+      <mat-icon>add_circle</mat-icon>
+      Nueva tarea
+    </button>
+    <button mat-raised-button *ngIf="toogleEdit" (click)="updateAllTasks()">
+      <mat-icon>save</mat-icon>
+      Guardar
+    </button>
   </div>
 
   <div class="overflow-x-auto schedule">

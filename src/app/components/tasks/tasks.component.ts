@@ -57,7 +57,7 @@ export class TasksComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      if (result.newTask == true) {
+      if (result?.newTask == true) {
         // this.getAllTasks()
       }
     });

@@ -20,7 +20,19 @@ export class NewTaskFormComponent implements OnInit {
     sabado: 0,
     total: 0
   }
-  email = new FormControl('', [Validators.required]);
+
+  auxTask: any = {
+    tarea: '',
+    domingo: undefined,
+    lunes: undefined,
+    martes: undefined,
+    miercoles: undefined,
+    jueves: undefined,
+    viernes: undefined,
+    sabado: undefined,
+    total: undefined
+  }
+  showError = false
   //nsewTask: Task
   constructor(private apiService: ApiService,
     public dialogRef: MatDialogRef<NewTaskFormComponent>,
@@ -29,7 +41,13 @@ export class NewTaskFormComponent implements OnInit {
   ngOnInit() {}
 
   saveNewTask(){
+    if(this.auxTask.tarea === undefined || this.auxTask.tarea === ''){
+      this.showError = true
+      console.log('de veras ando aqui?');
+      return
+    }
     this.completeTask()
+    console.log(this.newTask)
     this.apiService.createTask(this.newTask)
     .then((newTask) => {
       this.dialogRef.close({newTask: true});
@@ -37,11 +55,18 @@ export class NewTaskFormComponent implements OnInit {
     });
   }
 
+  taskInput(){
+    this.showError = false
+  }
+
   closeModal(){
     this.dialogRef.close();
   }
 
   completeTask(){
+    console.log('hola');
+    for(let data in this.auxTask)
+      this.newTask[data] = this.auxTask[data] || 0
     let values = Object.values(this.newTask)
     let sum = 0;
     values.forEach(value => {
