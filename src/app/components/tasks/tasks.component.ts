@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Task } from 'src/app/interfaces/task';
 import { ApiService } from 'src/app/services/api.service';
 //import  map   from 'underscore/modules/map.js'
 import { map, omit } from 'underscore';
@@ -26,7 +27,7 @@ export class TasksComponent implements OnInit {
     sabado: this.activeHours,
   }
   taskCount = 0
-
+  displayedColumns: string[] = ['Tarea', 'Domingo', 'Lunes', 'Martes','Miercoles','Jueves','Viernes','Sabado','Total'];
   constructor(private apiService: ApiService,
     public dialog: MatDialog) { }
 
@@ -49,6 +50,31 @@ export class TasksComponent implements OnInit {
     this.apiService.tasksObs.subscribe(data => {
       incomingTasks(data)
     })
+  }
+
+  completeTasksData(){
+    return [...this.tasks,{
+      tarea: 'Restante',
+      ...this.hoursLeft,
+      total: `Max ${this.activeHours}`
+    }]
+  }
+  filterProperty(data: Task[]){
+    let arr = []
+    const filter = (data: Task) => {
+      let newObj = Object.assign({},data)
+      delete newObj.selected
+      delete newObj.color
+      delete newObj.id
+      return newObj
+    }
+
+    for(let tsk of data){
+      arr.push(filter(tsk))
+    }
+    console.log(arr);
+    return arr
+    
   }
 
   async presentModal() {
@@ -102,9 +128,10 @@ export class TasksComponent implements OnInit {
 
   updateTotal(id) {
     //console.log('called')
-    this.tasks[id].total = 0
+    let ind = this.tasks.findIndex((tsk)=> tsk.id === id)
+    this.tasks[ind].total = 0
     let sum = 0
-    const values = Object.values(this.tasks[id]);
+    const values = Object.values(this.tasks[ind]);
     values.forEach(value => {
       if (typeof value == 'number')
         sum += value
